@@ -1,42 +1,220 @@
+/* Header Styles */
 .header {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: #0b1220;
-  border-bottom: 1px solid rgba(255,255,255,.08);
-  backdrop-filter: saturate(140%) blur(6px);
+  background: linear-gradient(135deg, #0b1220 0%, #0f1828 100%);
+  border-bottom: 1px solid rgba(45, 122, 79, 0.2);
+  backdrop-filter: saturate(140%) blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+
 .inner {
-  max-width: 1120px;
+  max-width: 1280px;
   margin: 0 auto;
-  height: 64px;
+  height: 70px;
   display: flex;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 24px;
   justify-content: space-between;
+  position: relative;
 }
+
+/* Brand / Logo */
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   text-decoration: none;
+  transition: transform 0.2s ease;
+  z-index: 51;
 }
+
+.brand:hover {
+  transform: translateY(-1px);
+}
+
 .brandText {
   font-weight: 700;
-  color: #e8f1ff;
-  letter-spacing: .2px;
+  font-size: 1.25rem;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+  background: linear-gradient(135deg, #2d7a4f 0%, #3d9b63 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
+
+/* Desktop Navigation */
 .nav {
   display: flex;
-  gap: 14px;
+  gap: 8px;
   align-items: center;
 }
+
 .navLink {
-  color: #bcd1ff;
+  color: #cbd5e1;
   text-decoration: none;
-  padding: 8px 10px;
+  padding: 10px 16px;
   border-radius: 10px;
-  transition: background .2s ease, color .2s ease;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  position: relative;
 }
-.navLink:hover { background: rgba(255,255,255,.06); color: #fff; }
-.active { background: rgba(103,151,255,.15); color: #fff; }
+
+.navLink:hover {
+  background: rgba(45, 122, 79, 0.15);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.navLink.active {
+  background: linear-gradient(135deg, rgba(45, 122, 79, 0.25), rgba(61, 155, 99, 0.2));
+  color: #ffffff;
+  box-shadow: 0 0 0 1px rgba(45, 122, 79, 0.3);
+}
+
+.navLink.active::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  background: linear-gradient(90deg, #2d7a4f, #3d9b63);
+  border-radius: 2px 2px 0 0;
+}
+
+/* Mobile Menu Button */
+.mobileMenuButton {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+  z-index: 51;
+}
+
+.mobileMenuButton:hover {
+  background: rgba(45, 122, 79, 0.15);
+}
+
+.mobileMenuButton:active {
+  transform: scale(0.95);
+}
+
+/* Mobile Navigation */
+.mobileNav {
+  display: none;
+  flex-direction: column;
+  background: linear-gradient(135deg, #0f1828 0%, #1e293b 100%);
+  border-top: 1px solid rgba(45, 122, 79, 0.2);
+  padding: 16px 24px 24px;
+  gap: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.mobileNavLink {
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.mobileNavLink:hover {
+  background: rgba(45, 122, 79, 0.15);
+  color: #ffffff;
+  border-color: rgba(45, 122, 79, 0.3);
+}
+
+.mobileNavLink.mobileActive {
+  background: linear-gradient(135deg, rgba(45, 122, 79, 0.25), rgba(61, 155, 99, 0.2));
+  color: #ffffff;
+  border-color: rgba(45, 122, 79, 0.4);
+  box-shadow: 0 2px 8px rgba(45, 122, 79, 0.15);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .inner {
+    height: 64px;
+    padding: 0 16px;
+  }
+
+  .brandText {
+    font-size: 1.125rem;
+  }
+
+  /* Hide desktop nav on mobile */
+  .nav {
+    display: none;
+  }
+
+  /* Show mobile menu button */
+  .mobileMenuButton {
+    display: block;
+  }
+
+  /* Show mobile nav when open */
+  .mobileNav {
+    display: flex;
+  }
+}
+
+@media (min-width: 769px) {
+  /* Ensure mobile nav is hidden on desktop */
+  .mobileNav {
+    display: none !important;
+  }
+}
+
+/* Small mobile optimization */
+@media (max-width: 480px) {
+  .inner {
+    padding: 0 12px;
+  }
+
+  .brand {
+    gap: 8px;
+  }
+
+  .brandText {
+    font-size: 1rem;
+  }
+
+  .mobileNav {
+    padding: 12px 16px 20px;
+  }
+
+  .mobileNavLink {
+    padding: 12px 14px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .brand,
+  .navLink,
+  .mobileMenuButton,
+  .mobileNavLink {
+    transition: none;
+  }
+}
+
+/* Focus states for keyboard navigation */
+.brand:focus-visible,
+.navLink:focus-visible,
+.mobileMenuButton:focus-visible,
+.mobileNavLink:focus-visible {
+  outline: 2px solid #2d7a4f;
+  outline-offset: 2px;
+}
