@@ -1,69 +1,38 @@
-/* components/SkillChips/SkillChips.module.css */
-.container {
-  width: 100%;
-}
-
-.chipList {
+.wrap { display: grid; gap: 6px; }
+.chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 0.75rem;
-  border: 2px solid var(--border-color);
-  border-radius: 8px;
-  background: var(--input-bg);
-  min-height: 48px;
-  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.12);
 }
-
-.chipList:focus-within {
-  border-color: var(--primary-color);
-  outline: 2px solid var(--primary-color-light);
-}
-
 .chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  background: var(--chip-bg);
-  color: var(--chip-text);
-  padding: 0.375rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  animation: fadeSlide 0.2s ease-out;
+  gap: 8px;
+  padding: 6px 10px;
+  background: rgba(122,168,255,.15);
+  color: #eaf2ff;
+  border-radius: 999px;
+  font-size: 14px;
 }
-
-.removeBtn {
-  background: none;
+.x {
   border: none;
-  color: var(--chip-text);
-  font-size: 1.25rem;
+  background: transparent;
+  color: #eaf2ff;
+  font-size: 16px;
   line-height: 1;
   cursor: pointer;
-  padding: 0;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: background 0.2s;
 }
-
-.removeBtn:hover {
-  background: rgba(0, 0, 0, 0.1);
-}
-
 .input {
   flex: 1;
+  min-width: 140px;
   border: none;
-  outline: none;
   background: transparent;
-  font-size: 1rem;
-  min-width: 120px;
-  color: var(--text-primary);
+  color: #eaf2ff;
+  outline: none;
+  font-size: 14px;
 }
-
-.input::placeholder {
-  color: var(--text-tertiary);
-}
+.hint { font-size: 12px; color: #aebedf; opacity: .8; }

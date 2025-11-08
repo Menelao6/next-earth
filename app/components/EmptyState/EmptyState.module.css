@@ -1,0 +1,21 @@
+.box {
+  border: 1px dashed rgba(255,255,255,.18);
+  background: rgba(255,255,255,.03);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  color: #c8d8ff;
+}
+.icon { font-size: 28px; margin-bottom: 6px; }
+.title { font-size: 18px; margin: 6px 0; }
+.msg { opacity: .8; font-size: 14px; }
+.button {
+  margin-top: 12px;
+  display: inline-block;
+  padding: 8px 16px;
+  background: #1a73ff;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background .2s ease;
+}

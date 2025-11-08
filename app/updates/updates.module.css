@@ -1,0 +1,5 @@
+.wrap { max-width: 860px; margin: 18px auto; padding: 0 16px; }
+.h { margin: 0 0 12px; color: #eaf2ff; }
+.err { color: #ffb3a3; }
+.list { display: grid; gap: 14px; }
+.actions { margin-top: 12px; }

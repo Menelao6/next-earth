@@ -1,40 +1,40 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import styles from './Header.module.css';
-import Link from 'next/link';
+import Link from "next/link";
+import styles from "./Header.module.css";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 
-export function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+const NAV = [
+  { href: "/", label: "Home" },
+  { href: "/profile", label: "Profile" },
+  { href: "/suggestions", label: "Suggestions" },
+  { href: "/updates", label: "Updates" },
+];
+
+export default function Header() {
+  const pathname = usePathname();
 
   return (
-    <header className={styles.header}>
-      <div className={styles.container}>
-        <Link href="/" className={styles.logo}>
-          <span className={styles.logoText}>Renewus</span>
+    <header className={styles.header} role="banner">
+      <div className={styles.inner}>
+        <Link className={styles.brand} href="/" aria-label="Renewus home">
+          <Image src="/logo.svg" width={28} height={28} alt="" />
+          <span className={styles.brandText}>Renewus</span>
         </Link>
 
-        <button
-          className={styles.mobileToggle}
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
-          aria-expanded={mobileMenuOpen}
-        >
-          <span className={styles.hamburger}></span>
-          <span className={styles.hamburger}></span>
-          <span className={styles.hamburger}></span>
-        </button>
-
-        <nav className={`${styles.nav} ${mobileMenuOpen ? styles.navOpen : ''}`}>
-          <Link href="/profile" className={styles.navLink}>
-            Your Profile
-          </Link>
-          <Link href="/suggestions" className={styles.navLink}>
-            Recommendations
-          </Link>
-          <Link href="/updates" className={styles.navLink}>
-            Updates
-          </Link>
+        <nav className={styles.nav} aria-label="Primary">
+          {NAV.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`${styles.navLink} ${
+                pathname === item.href ? styles.active : ""
+              }`}
+            >
+              {item.label}
+            </Link>
+          ))}
         </nav>
       </div>
     </header>

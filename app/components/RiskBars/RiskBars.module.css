@@ -1,0 +1,22 @@
+.wrap { border: 1px solid rgba(255,255,255,.12); border-radius: 16px; padding: 14px; background: rgba(255,255,255,.03); }
+.h { margin: 0 0 8px; font-size: 14px; color: #eaf2ff; opacity: .9; }
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.row { display: grid; grid-template-columns: 90px 1fr 46px; align-items: center; gap: 8px; }
+.label { color: #cfe0ff; font-size: 13px; }
+.bar { background: rgba(255,255,255,.08); height: 8px; border-radius: 999px; overflow: hidden; }
+.fill { height: 100%; border-radius: 999px; transform-origin: left center; }
+.flood { background: #67a6ff; }
+.cyclone { background: #8dd0ff; }
+.heat { background: #ff9966; }
+.pct { font-size: 12px; color: #d9e6ff; text-align: right; }
+.src { margin-top: 8px; font-size: 12px; color: #aebedf; opacity: .85; }
+.button {
+  margin-top: 12px;
+  display: inline-block;
+  padding: 8px 16px;
+  background: #1a73ff;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background .2s ease;
+}

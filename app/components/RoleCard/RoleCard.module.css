@@ -1,0 +1,32 @@
+.card {
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+}
+.header {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.title { margin: 0; font-size: 18px; color: #f2f6ff; }
+.score {
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: rgba(108,177,255,.18);
+  color: #ddebff;
+}
+.body { display: grid; gap: 10px; }
+.steps { display: flex; flex-wrap: wrap; gap: 8px; }
+.step {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  color: #eaf2ff;
+  text-decoration: none;
+  font-size: 14px;
+  transition: transform .15s ease, background .2s ease;
+}
+.step:hover { background: rgba(255,255,255,.1); transform: translateY(-1px); }

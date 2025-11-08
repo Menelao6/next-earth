@@ -1,0 +1,21 @@
+.wrap { max-width: 860px; margin: 24px auto; padding: 0 16px; }
+.h { margin: 0 0 16px; color: #eaf2ff; }
+.grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+  gap: 14px; margin-bottom: 18px;
+}
+.field, .fieldFull { display: grid; gap: 6px; }
+.fieldFull { grid-column: 1 / -1; }
+.label { color: #cfe0ff; font-size: 14px; }
+.input {
+  background: rgba(255,255,255,.05); color: #eaf2ff; border: 1px solid rgba(255,255,255,.12);
+  border-radius: 10px; padding: 10px;
+}
+.checkbox { align-items: center; grid-auto-flow: column; justify-content: start; gap: 8px; }
+.actions { display: flex; justify-content: space-between; margin-top: 12px; }
+.btn, .btnGhost {
+  padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,.16);
+}
+.btn { background: rgba(122,168,255,.16); color: #fff; font-weight: 600; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btnGhost { background: transparent; color: #eaf2ff; }

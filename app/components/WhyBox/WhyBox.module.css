@@ -1,0 +1,27 @@
+.box {
+  border-radius: 12px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.1);
+  padding: 12px;
+}
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  background: rgba(118,168,255,.2);
+  color: #e9f3ff;
+  margin-bottom: 6px;
+}
+.text { margin: 0 0 6px; color: #dbe9ff; }
+.source { font-size: 12px; color: #aebedf; opacity: .85; }
+.button {
+  margin-top: 12px;
+  display: inline-block;
+  padding: 8px 16px;
+  background: #1a73ff;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background .2s ease;
+}

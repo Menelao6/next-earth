@@ -1,0 +1,19 @@
+.wrap {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  min-height: 120px;
+}
+.spinner {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,.2);
+  border-top-color: #6aa3ff;
+  animation: spin 1s linear infinite;
+}
+.label { color: #bcd1ff; font-size: 14px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation: none; border-top-color: #6aa3ff; }
+}

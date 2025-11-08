@@ -1,57 +1,21 @@
-/* components/PathCards/PathCards.module.css */
-.container {
+.grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
 }
-
 .card {
-  background: var(--card-bg);
-  border: 2px solid var(--border-color);
-  border-radius: 12px;
-  padding: 2rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
-  position: relative;
+  border-radius: 16px;
+  padding: 18px;
+  text-align: left;
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,.1);
+  color: #eaf2ff;
+  display: grid;
+  gap: 6px;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
-
-.card:hover {
-  transform: translateY(-4px);
-  border-color: var(--primary-color);
-  box-shadow: 0 8px 24px var(--shadow-color);
-}
-
-.card.selected {
-  border-color: var(--primary-color);
-  background: var(--card-selected-bg);
-  box-shadow: 0 8px 24px var(--shadow-color);
-}
-
-.icon {
-  font-size: 3rem;
-  display: block;
-  margin-bottom: 1rem;
-}
-
-.title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: var(--text-primary);
-}
-
-.description {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
-
-@media (max-width: 768px) {
-  .container {
-    grid-template-columns: 1fr;
-  }
-}
+.card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.25); border-color: rgba(122,168,255,.5); }
+.active { outline: 2px solid rgba(122,168,255,.7); border-color: rgba(122,168,255,.7); }
+.emoji { font-size: 22px; }
+.title { font-weight: 700; }
+.desc { opacity: .85; font-size: 14px; }

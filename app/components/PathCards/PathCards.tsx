@@ -1,50 +1,40 @@
-// components/PathCards/PathCards.tsx
-'use client';
+"use client";
 
-import { PathChoice } from '../../lib/types';
-import styles from './PathCards.module.css';
+import styles from "./PathCards.module.css";
 
-interface PathCardsProps {
+export type PathChoice = "help_hospitals" | "post_disaster" | "green_workforce";
+
+export interface PathCardsProps {
   selected?: PathChoice;
-  onSelect: (path: PathChoice) => void;
+  onSelect: (p: PathChoice) => void;
 }
 
-const pathOptions = [
-  {
-    id: 'help_hospitals' as PathChoice,
-    title: 'Help Hospitals',
-    description: 'Support healthcare facilities in climate-affected areas',
-    icon: '🏥',
-  },
-  {
-    id: 'post_disaster' as PathChoice,
-    title: 'Support Communities After Disasters',
-    description: 'Aid recovery and rebuilding efforts',
-    icon: '🤝',
-  },
-  {
-    id: 'green_workforce' as PathChoice,
-    title: 'Join the Green Workforce',
-    description: 'Build a career in sustainable industries',
-    icon: '🌱',
-  },
+const CARDS: { key: PathChoice; title: string; desc: string; emoji: string }[] = [
+  { key: "help_hospitals", title: "Help Hospitals", desc: "Support climate-driven health responses.", emoji: "🏥" },
+  { key: "post_disaster", title: "Support Communities", desc: "Contribute to post-disaster relief & rebuild.", emoji: "🤝" },
+  { key: "green_workforce", title: "Join Green Workforce", desc: "Solar, water, forestry & climate-smart roles.", emoji: "🌱" },
 ];
 
 export default function PathCards({ selected, onSelect }: PathCardsProps) {
   return (
-    <div className={styles.container}>
-      {pathOptions.map((option) => (
-        <button
-          key={option.id}
-          className={`${styles.card} ${selected === option.id ? styles.selected : ''} appear`}
-          onClick={() => onSelect(option.id)}
-          aria-pressed={selected === option.id}
-        >
-          <span className={styles.icon}>{option.icon}</span>
-          <h3 className={styles.title}>{option.title}</h3>
-          <p className={styles.description}>{option.description}</p>
-        </button>
-      ))}
+    <div className={styles.grid} role="list">
+      {CARDS.map(card => {
+        const isActive = selected === card.key;
+        return (
+          <button
+            key={card.key}
+            role="listitem"
+            type="button"
+            className={`${styles.card} ${isActive ? styles.active : ""}`}
+            onClick={() => onSelect(card.key)}
+            aria-pressed={isActive}
+          >
+            <span className={styles.emoji} aria-hidden>{card.emoji}</span>
+            <span className={styles.title}>{card.title}</span>
+            <span className={styles.desc}>{card.desc}</span>
+          </button>
+        );
+      })}
     </div>
   );
 }

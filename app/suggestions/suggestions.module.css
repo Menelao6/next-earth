@@ -1,0 +1,15 @@
+.wrap {
+  max-width: 1120px; margin: 18px auto; padding: 0 16px;
+  display: grid; grid-template-columns: 1fr; gap: 16px;
+}
+@media (min-width: 920px) { .wrap { grid-template-columns: 1fr 320px; } }
+.h { margin: 0 0 10px; color: #eaf2ff; }
+.err { color: #ffb3a3; }
+.list { display: grid; gap: 12px; }
+.actions { margin-top: 10px; }
+.btn {
+  padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,.16);
+  background: rgba(122,168,255,.16); color: #fff; font-weight: 600; cursor: pointer;
+}
+.side { position: sticky; top: 84px; height: fit-content; }
+.side h2 { margin: 0 0 10px; color: #eaf2ff; }

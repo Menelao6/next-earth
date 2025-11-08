@@ -1,60 +1,72 @@
-// components/SkillChips/SkillChips.tsx
-'use client';
+"use client";
 
-import { useState, KeyboardEvent } from 'react';
-import styles from './SkillChips.module.css';
+import { useRef, useState } from "react";
+import styles from "./SkillChips.module.css";
 
 interface SkillChipsProps {
   value: string[];
-  onChange: (skills: string[]) => void;
+  onChange: (next: string[]) => void;
   placeholder?: string;
+  max?: number;
 }
 
-export default function SkillChips({ value, onChange, placeholder = 'Type a skill and press Enter' }: SkillChipsProps) {
-  const [input, setInput] = useState('');
+export default function SkillChips({
+  value,
+  onChange,
+  placeholder = "Type a skill and press Enter…",
+  max = 10,
+}: SkillChipsProps) {
+  const [input, setInput] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && input.trim()) {
-      e.preventDefault();
-      if (!value.includes(input.trim())) {
-        onChange([...value, input.trim()]);
-      }
-      setInput('');
-    } else if (e.key === 'Backspace' && !input && value.length > 0) {
-      onChange(value.slice(0, -1));
-    }
-  };
+  function addSkill(s: string) {
+    const skill = s.trim();
+    if (!skill) return;
+    if (value.includes(skill.toLowerCase())) return;
+    if (value.length >= max) return;
+    onChange([...value, skill.toLowerCase()]);
+    setInput("");
+    inputRef.current?.focus();
+  }
 
-  const removeSkill = (skill: string) => {
-    onChange(value.filter((s) => s !== skill));
-  };
+  function removeSkill(s: string) {
+    onChange(value.filter(v => v !== s));
+  }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.chipList}>
-        {value.map((skill) => (
-          <span key={skill} className={styles.chip}>
-            {skill}
+    <div className={styles.wrap}>
+      <div className={styles.chips} aria-live="polite">
+        {value.map((s) => (
+          <span key={s} className={styles.chip}>
+            {s}
             <button
               type="button"
-              className={styles.removeBtn}
-              onClick={() => removeSkill(skill)}
-              aria-label={`Remove ${skill}`}
+              className={styles.x}
+              aria-label={`Remove ${s}`}
+              onClick={() => removeSkill(s)}
             >
               ×
             </button>
           </span>
         ))}
         <input
-          type="text"
+          ref={inputRef}
           className={styles.input}
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder={value.length === 0 ? placeholder : ''}
-          aria-label="Add skill"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              addSkill(input);
+            } else if (e.key === "Backspace" && !input && value.length) {
+              removeSkill(value[value.length - 1]);
+            }
+          }}
+          placeholder={placeholder}
+          aria-label="Add skills"
         />
       </div>
+      <div className={styles.hint}>{value.length}/{max} skills</div>
     </div>
   );
 }
