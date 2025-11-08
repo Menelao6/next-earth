@@ -1,0 +1,67 @@
+renewus/
+├─ app/
+│  ├─ (marketing)/
+│  │  └─ page.tsx                     # Landing / Path selection
+│  ├─ profile/
+│  │  └─ page.tsx                     # Screen 2
+│  ├─ suggestions/
+│  │  └─ page.tsx                     # Screen 3
+│  ├─ updates/
+│  │  └─ page.tsx                     # Screen 4
+│  ├─ layout.tsx
+│  ├─ globals.css
+│  └─ favicon.ico
+├─ components/
+│  ├─ Header/
+│  │  ├─ Header.tsx
+│  │  └─ Header.module.css
+│  ├─ Footer/
+│  │  ├─ Footer.tsx
+│  │  └─ Footer.module.css
+│  ├─ PathCards/
+│  │  ├─ PathCards.tsx
+│  │  └─ PathCards.module.css
+│  ├─ SkillChips/
+│  │  ├─ SkillChips.tsx
+│  │  └─ SkillChips.module.css
+│  ├─ RoleCard/
+│  │  ├─ RoleCard.tsx
+│  │  └─ RoleCard.module.css
+│  ├─ WhyBox/
+│  │  ├─ WhyBox.tsx
+│  │  └─ WhyBox.module.css
+│  ├─ RiskBars/
+│  │  ├─ RiskBars.tsx
+│  │  └─ RiskBars.module.css
+│  ├─ NewsList/
+│  │  ├─ NewsList.tsx
+│  │  └─ NewsList.module.css
+│  ├─ EmptyState/
+│  │  ├─ EmptyState.tsx
+│  │  └─ EmptyState.module.css
+│  └─ Loader/
+│     ├─ Loader.tsx
+│     └─ Loader.module.css
+├─ lib/
+│  ├─ api.ts                          # fetch wrappers: recommend, news
+│  ├─ store.ts                        # simple client store (zod schema optional)
+│  ├─ types.ts                        # TS interfaces (Role, Risk, etc.)
+│  └─ utils.ts                        # formatters, copyToClipboard, etc.
+├─ mocks/
+│  ├─ risk_by_country.json
+│  ├─ roles.json
+│  └─ news.json
+├─ public/
+│  ├─ logo.svg
+│  └─ icons/ (small inline SVGs)
+├─ styles/
+│  ├─ variables.css                   # CSS variables (colors, spacing)
+│  └─ animations.css                  # keyframes + motion-reduced guards
+├─ pages/
+│  └─ api/
+│     ├─ recommend.ts                 # API stub (optional for local dev)
+│     └─ news.ts                      # API stub (optional for local dev)
+├─ README.md
+├─ next.config.js
+├─ package.json
+└─ tsconfig.json
