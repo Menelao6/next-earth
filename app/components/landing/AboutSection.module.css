@@ -1,0 +1,225 @@
+/* components/landing/AboutSection.module.css */
+.aboutSection {
+  padding: 5rem 0;
+  background: linear-gradient(180deg, 
+    rgba(30, 41, 59, 0.3) 0%,
+    rgba(15, 23, 42, 0.1) 100%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-bottom: 5rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.content.animateIn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.textContent {
+  padding-right: 2rem;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffffff, #2d7a4f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 2rem;
+}
+
+.description {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #cbd5e1;
+  margin-bottom: 1.5rem;
+}
+
+.visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.globeAnimation {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ring {
+  position: absolute;
+  border: 2px solid rgba(45, 122, 79, 0.3);
+  border-radius: 50%;
+  animation: rotate 20s linear infinite;
+}
+
+.ring:nth-child(1) {
+  width: 200px;
+  height: 200px;
+  animation-delay: 0s;
+}
+
+.ring:nth-child(2) {
+  width: 250px;
+  height: 250px;
+  animation-delay: -5s;
+  animation-direction: reverse;
+}
+
+.ring:nth-child(3) {
+  width: 300px;
+  height: 300px;
+  animation-delay: -10s;
+}
+
+.core {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #2d7a4f, #3d9b63);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 30px rgba(45, 122, 79, 0.5),
+    inset 0 0 20px rgba(255, 255, 255, 0.2);
+  animation: pulseCore 4s ease-in-out infinite;
+}
+
+.stepsSection {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease 0.3s;
+}
+
+.stepsSection.animateIn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stepsTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 3rem;
+  background: linear-gradient(135deg, #ffffff, #2d7a4f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.step {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.step:hover {
+  transform: translateY(-5px);
+  border-color: rgba(45, 122, 79, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.stepNumber {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #2d7a4f, #3d9b63);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 4px 15px rgba(45, 122, 79, 0.4);
+}
+
+.stepContent h4 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.stepContent p {
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulseCore {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+  }
+  
+  .textContent {
+    padding-right: 0;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .globeAnimation {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .stepsTitle {
+    font-size: 2rem;
+  }
+  
+  .step {
+    padding: 1.5rem;
+  }
+}

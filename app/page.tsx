@@ -1,38 +1,65 @@
-"use client";
+// app/page.tsx - UPDATED
+'use client';
 
-import { useRouter } from "next/navigation";
-import PathCards, { PathChoice } from "./components/PathCards/PathCards";
-import styles from "./landing.module.css";
-import { useAppState } from "./lib/useAppState";
+import { useEffect, useRef } from 'react';
+import HeroSection from './components/landing/HeroSection';
+import ImpactStats from './components/landing/ImpactStats';
+import PathSelector from './components/landing/PathSelector';
+import AboutSection from './components/landing/AboutSection';
+import styles from './landing.module.css';
 
 export default function LandingPage() {
-  const { state, setState } = useAppState();
-  const router = useRouter();
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  function onSelect(path: PathChoice) {
-    setState({ ...state, path });
-  }
+  useEffect(() => {
+    // Add floating particles background
+    const createParticles = () => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      // Clear existing particles
+      const existingParticles = container.querySelectorAll(`.${styles.floatingParticle}`);
+      existingParticles.forEach(particle => particle.remove());
+
+      for (let i = 0; i < 15; i++) {
+        const particle = document.createElement('div');
+        particle.className = styles.floatingParticle;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.animationDelay = `${Math.random() * 20}s`;
+        container.appendChild(particle);
+      }
+    };
+
+    createParticles();
+
+    // Prevent scroll bounce/overscroll
+    const preventScrollBounce = (e: TouchEvent) => {
+      if (window.scrollY === 0 && e.cancelable) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener('touchmove', preventScrollBounce, { passive: false });
+
+    return () => {
+      const container = containerRef.current;
+      if (container) {
+        const particles = container.querySelectorAll(`.${styles.floatingParticle}`);
+        particles.forEach(particle => particle.remove());
+      }
+      document.removeEventListener('touchmove', preventScrollBounce);
+    };
+  }, []);
 
   return (
-    <section className={styles.hero}>
-      <div className={styles.inner}>
-        <h1 className={styles.h1}>Renewus</h1>
-        <p className={styles.tag}>AI that connects your skills to real climate action.</p>
-
-        <div className={styles.cardsWrap}>
-          <PathCards selected={state.path} onSelect={onSelect} />
-        </div>
-
-        <button
-          className={styles.cta}
-          disabled={!state.path}
-          onClick={() => router.push("/profile")}
-          aria-disabled={!state.path}
-        >
-          Continue
-        </button>
+    <div ref={containerRef} className={styles.landingContainer}>
+      <div className={styles.contentWrapper}>
+        <HeroSection />
+        <ImpactStats />
+        <PathSelector />
+        <AboutSection />
       </div>
-      <div className={styles.bg} aria-hidden />
-    </section>
+    </div>
   );
 }
