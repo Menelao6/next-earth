@@ -5,7 +5,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const keyword = (searchParams.get("keyword") || "").trim() || undefined;
   const url = "https://api.reliefweb.int/v1/reports";
-
+ 
   const base = {
     limit: 10,
     sort: ["date:desc"],
