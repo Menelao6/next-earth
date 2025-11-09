@@ -7,7 +7,7 @@ export interface NewsItem {
   title: string;
   source: string;
   url: string;
-  publishedAt: string; // ISO string
+  publishedAt: string;
 }
 
 export default function NewsList() {
@@ -16,18 +16,15 @@ export default function NewsList() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch news whenever keyword changes
   useEffect(() => {
     async function fetchNews() {
       setLoading(true);
       setError(null);
-
       try {
         const res = await fetch(`/api/news?keyword=${encodeURIComponent(keyword)}`);
         if (!res.ok) throw new Error("Failed to fetch news");
-
-        const data = await res.json();
-        setItems(data);
+        const data = await res.json();           // expect { items: NewsItem[] }
+        setItems(Array.isArray(data) ? data : data.items ?? []);
       } catch (err) {
         console.error(err);
         setError("Failed to load news. Please try again later.");
@@ -35,11 +32,9 @@ export default function NewsList() {
         setLoading(false);
       }
     }
-
     fetchNews();
   }, [keyword]);
 
-  // Handle search submit
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -59,42 +54,33 @@ export default function NewsList() {
           className={styles.input}
           defaultValue={keyword}
         />
-        <button type="submit" className={styles.button}>
-          Search
-        </button>
+        <button type="submit" className={styles.button}>Search</button>
       </form>
 
       {loading && <p className={styles.status}>Loading...</p>}
       {error && <p className={styles.error}>{error}</p>}
 
       {!loading && !error && (
-        <>
-          {items.length === 0 ? (
-            <p className={styles.empty}>No updates yet.</p>
-          ) : (
-            <ul className={styles.list} aria-live="polite">
-              {items.map((n) => (
-                <li key={n.url} className={styles.item}>
-                  <a
-                    className={styles.link}
-                    href={n.url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <span className={styles.title}>{n.title}</span>
-                    <span className={styles.meta}>
-                      {n.source} •{" "}
-                      {new Date(n.publishedAt).toLocaleString(undefined, {
-                        dateStyle: "medium",
-                        timeStyle: "short",
-                      })}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
-        </>
+        items.length === 0 ? (
+          <p className={styles.empty}>No updates yet.</p>
+        ) : (
+          <ul className={styles.list} aria-live="polite">
+            {items.map((n) => (
+              <li key={n.url} className={styles.item}>
+                <a className={styles.link} href={n.url} target="_blank" rel="noreferrer">
+                  <span className={styles.title}>{n.title}</span>
+                  <span className={styles.meta}>
+                    {n.source} •{" "}
+                    {new Date(n.publishedAt).toLocaleString(undefined, {
+                      dateStyle: "medium",
+                      timeStyle: "short",
+                    })}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
       )}
     </div>
   );

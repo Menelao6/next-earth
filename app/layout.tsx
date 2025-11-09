@@ -1,4 +1,3 @@
-// app/layout.tsx - UPDATED
 import "./globals.css";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -12,10 +11,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body style={{ margin: 0, padding: 0, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <body>
         <AppStateProvider>
           <Header />
-          <main className="container" style={{ flex: 1 }}>{children}</main>
+          <main>{children}</main>
           <Footer />
         </AppStateProvider>
       </body>

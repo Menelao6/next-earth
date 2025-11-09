@@ -1,21 +1,17 @@
-/* globals.css - UPDATED */
-/* ClimaNavigator Global Styles - FORCED DARK THEME */
-
-/* CSS Reset & Base Styles */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
   /* Primary Color Palette - Earth/Climate Inspired */
   --color-primary: #2d7a4f;
   --color-primary-light: #3d9b63;
-  --color-primary-dark: #1f5938;
-  --color-primary-hover: #256741;
+  --color-bg-primary: #0f172a;
+  --color-bg-secondary: #1e293b;
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #cbd5e1;
   
   /* Secondary Colors - Sky & Ocean */
   --color-secondary: #0ea5e9;
@@ -130,23 +126,23 @@ body {
 }
 
 html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.6;
   overflow-x: hidden;
-  position: relative ;
+  min-height: 100vh;
 }
+
 #__next {
   min-height: 100vh;
   position: relative;
 }
 
-/* Remove any custom scrollbar styles that might conflict */
-/* Let the browser handle scrollbars */
-
-/* Rest of your existing global styles remain the same... */
-
+main {
+  width: 100%;
+  min-height: 100vh;
+}
 /* Typography Styles */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
