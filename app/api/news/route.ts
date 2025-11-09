@@ -5,38 +5,47 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const keyword = searchParams.get("keyword") || "disaster";
 
-  const apiKey = process.env.NEWS_API_KEY;
-  const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(
-    keyword
-  )}&language=en&sortBy=publishedAt&pageSize=10&apiKey=${apiKey}`;
+  const url = "https://api.reliefweb.int/v1/reports";
 
   try {
     const res = await fetch(url, {
-      headers: { "User-Agent": "Next.js Disaster News App" },
-      next: { revalidate: 1800 }, // cache for 30 minutes
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      next: { revalidate: 1800 },
+      body: JSON.stringify({
+        query: {
+          value: keyword
+        },
+        limit: 10,
+        sort: ["date:desc"],
+        fields: {
+          include: ["title", "url", "source", "date"]
+        }
+      }),
     });
 
     if (!res.ok) {
-      throw new Error(`NewsAPI error: ${res.status}`);
+      throw new Error(`ReliefWeb error: ${res.status}`);
     }
 
     const data = await res.json();
 
-    const items = data.articles
-      .filter((a: any) => a.title && a.url && a.source?.name && a.publishedAt)
-      .map((a: any) => ({
-        title: a.title,
-        source: a.source.name,
-        url: a.url,
-        publishedAt: a.publishedAt,
+    const items = data.data
+      .filter((i: any) => i.fields.title && i.fields.url && i.fields.date?.created)
+      .map((i: any) => ({
+        title: i.fields.title,
+        source: i.fields.source?.[0]?.name || "ReliefWeb",
+        url: i.fields.url,
+        publishedAt: i.fields.date.created,
       }));
 
     return NextResponse.json(items);
   } catch (err) {
-    console.error("Error fetching news:", err);
+    console.error("Error fetching reliefweb:", err);
     return NextResponse.json(
-      { error: "Failed to fetch news" },
+      { error: "Failed to fetch disaster data" },
       { status: 500 }
     );
   }
 }
+
