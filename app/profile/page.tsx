@@ -13,7 +13,7 @@ export default function ProfilePage() {
 
   return (
     <section className={styles.wrap}>
-      <h2 className={styles.h}>Tell us about you</h2>
+      <h2 className={styles.h}>Tell us about YOU!</h2>
 
       <div className={styles.grid}>
         <label className={styles.field}>
@@ -84,3 +84,4 @@ export default function ProfilePage() {
     </section>
   );
 }
+
