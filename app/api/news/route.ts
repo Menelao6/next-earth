@@ -3,25 +3,28 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const keyword = searchParams.get("keyword") || "disaster";
-
+  const keyword = (searchParams.get("keyword") || "").trim();
   const url = "https://api.reliefweb.int/v1/reports";
+
+  const base = {
+    limit: 10,
+    sort: ["date:desc"],
+    fields: { include: ["title", "url", "source", "date"] },
+  };
+
+  const body = keyword
+    ? { ...base, query: { value: keyword } }
+    : base;
 
   try {
     const res = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "User-Agent": "ReliefWebNewsApp/1.0"
+      },
       next: { revalidate: 1800 },
-      body: JSON.stringify({
-        query: {
-          value: keyword
-        },
-        limit: 10,
-        sort: ["date:desc"],
-        fields: {
-          include: ["title", "url", "source", "date"]
-        }
-      }),
+      body: JSON.stringify(body),
     });
 
     if (!res.ok) {
@@ -40,12 +43,9 @@ export async function GET(request: Request) {
       }));
 
     return NextResponse.json(items);
+
   } catch (err) {
     console.error("Error fetching reliefweb:", err);
-    return NextResponse.json(
-      { error: "Failed to fetch disaster data" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch disaster data" }, { status: 500 });
   }
 }
-
