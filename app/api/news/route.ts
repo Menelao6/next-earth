@@ -1,62 +1,84 @@
 // app/api/news/route.ts
 import { NextResponse } from "next/server";
-import Parser from "rss-parser";
-
-const parser = new Parser();
-
-// Curated keywords for natural disasters and humanitarian aid
-const KEYWORDS = [
-  "earthquake",
-  "flood",
-  "wildfire",
-  "hurricane",
-  "\"humanitarian aid\"",
-  "\"relief mission\"",
-  "\"natural disaster\"",
-  "drought",
-  "famine",
-  "evacuation",
-  "rescue"
-];
-
-// Utility: build Google News RSS search URL
-function buildRssUrl(keywords: string[]) {
-  const query = keywords.join(" OR ");
-  // Google News RSS with English results
-  return `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
-}
 
 export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const apiKey = process.env.NEWSDATA_API_KEY;
+  if (!apiKey) {
+    return NextResponse.json({ error: "Missing API key" }, { status: 500 });
+  }
+
+  // Shortened keyword set to fit under 100 chars
+  const keywordSet = [
+    "earthquake",
+    "flood",
+    "wildfire",
+    "\"humanitarian aid\"",
+    "\"relief mission\"",
+    "drought"
+  ];
+
+  // Add optional user keyword if provided, but only one
+  const userKeyword = (searchParams.get("keyword") || "").trim();
+  if (userKeyword && userKeyword.length <= 20) { // keep it short
+    keywordSet.push(userKeyword);
+  }
+
+  const qParam = `q=${encodeURIComponent(keywordSet.join(" OR "))}`;
+  const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&language=en&${qParam}`;
+
   try {
-    const { searchParams } = new URL(request.url);
-    const userKeyword = (searchParams.get("keyword") || "").trim();
-    const keywords = userKeyword ? [...KEYWORDS, userKeyword] : KEYWORDS;
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "User-Agent": "NewsDataClient/1.0"
+      },
+      next: { revalidate: 1800 },
+    });
 
-    const rssUrl = buildRssUrl(keywords);
-
-    // Parse the RSS feed
-    const feed = await parser.parseURL(rssUrl);
-
-    if (!feed.items || feed.items.length === 0) {
-      return NextResponse.json([], { status: 200 });
+    if (!res.ok) {
+      const text = await res.text();
+      console.error("NewsData fetch failed:", res.status, text);
+      return NextResponse.json(
+        { error: `NewsData error ${res.status}`, details: text },
+        { status: res.status }
+      );
     }
 
-    // Map feed items to a simpler format
-    const items = feed.items
-      .filter(item => item.title && item.link && item.pubDate)
-      .map(item => ({
-        title: item.title || "",
-        source: item.creator || "Google News",
-        url: item.link || "",
-        publishedAt: item.pubDate || "",
+    const data = await res.json();
+
+    if (!data.results || !Array.isArray(data.results)) {
+      console.error("Unexpected NewsData structure:", data);
+      return NextResponse.json(
+        { error: "Unexpected data structure from NewsData", debug: data },
+        { status: 500 }
+      );
+    }
+
+    // Filter articles by keywords in title
+    const items = data.results
+      .filter(
+        (a: any) =>
+          a.title &&
+          a.link &&
+          a.source_id &&
+          a.pubDate &&
+          keywordSet.some((k) => a.title.toLowerCase().includes(k.replace(/"/g, "").toLowerCase()))
+      )
+      .map((a: any) => ({
+        title: a.title,
+        source: a.source_id,
+        url: a.link,
+        publishedAt: a.pubDate,
       }));
 
     return NextResponse.json(items);
 
   } catch (err: any) {
-    console.error("Error fetching Google News RSS:", err);
+    console.error("Error fetching NewsData:", err);
     return NextResponse.json(
-      { error: "Failed to fetch news", details: err.message || err },
+      { error: "Failed to fetch news data", details: err.message || err },
       { status: 500 }
     );
   }
