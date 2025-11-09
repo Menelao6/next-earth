@@ -12,7 +12,6 @@ export async function GET(request: Request) {
 const keywordSet = [
   "earthquake",
   "flood",
-  "wildfire",
   "\"humanitarian aid\"",
   "\"natural disaster\"",
   "drought",
