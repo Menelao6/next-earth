@@ -478,9 +478,7 @@ export default function MatchesPage() {
                   <h2>Your Matches</h2>
                   <div className={styles.resultsInfo}>
                     <span>{results.recommendations.length} opportunities found</span>
-                    <button className={styles.saveButton}>
-                      Save Plan
-                    </button>
+                   
                   </div>
                 </div>
 

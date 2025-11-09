@@ -200,7 +200,7 @@ export default function AdviserPage() {
               </button>
             </div>
           )}
-          <h1 className={styles.title}>AI Climate Adviser</h1>
+          <h1 className={styles.title}>AI Adviser</h1>
           <p className={styles.subtitle}>
             Ask our AI adviser how to grow your impact.
           </p>
@@ -335,7 +335,7 @@ export default function AdviserPage() {
               {messages.length === 0 && hasProfileData ? (
                 <div className={styles.welcomeMessage}>
                   <div className={styles.welcomeEmoji}>🌍</div>
-                  <h3>Hello! I'm your AI Climate Adviser</h3>
+                  <h3>Hello! I'm your AI Adviser</h3>
                   <p>I can help you with:</p>
                   <ul className={styles.welcomeList}>
                     <li>Career guidance for green jobs</li>
@@ -360,7 +360,7 @@ export default function AdviserPage() {
               ) : messages.length === 0 && !hasProfileData ? (
                 <div className={styles.genericWelcome}>
                   <div className={styles.welcomeEmoji}>💬</div>
-                  <h3>Welcome to AI Climate Adviser</h3>
+                  <h3>Welcome to AI Adviser</h3>
                   <p>I can answer general questions about climate action, but for personalized advice, please set up your profile first.</p>
                   <p>Feel free to ask me about:</p>
                   <ul className={styles.welcomeList}>
