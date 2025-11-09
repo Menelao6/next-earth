@@ -39,7 +39,7 @@ export default function AdviserPage() {
       state.path.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase()) 
       : 'Not selected',
     skills: state.skills,
-    matchesCount: 0, // You can get this from your matches data
+    matchesCount: 0,
   };
 
   // Auto-scroll to bottom of messages
@@ -86,7 +86,7 @@ export default function AdviserPage() {
         body: JSON.stringify({
           message: content,
           context: chatContext,
-          conversationHistory: messages.slice(-10), // Last 10 messages for context
+          conversationHistory: messages.slice(-10),
         }),
       });
 
@@ -166,6 +166,7 @@ export default function AdviserPage() {
               <button 
                 className={styles.closeButton}
                 onClick={() => setIsContextOpen(false)}
+                aria-label="Close context panel"
               >
                 ×
               </button>
@@ -229,11 +230,12 @@ export default function AdviserPage() {
         </aside>
 
         {/* Main Chat Area */}
-        <main className={styles.main}>
+        <main className={`${styles.main} ${!isContextOpen ? styles.mainExpanded : ''}`}>
           {!isContextOpen && (
             <button 
               className={styles.openContextButton}
               onClick={() => setIsContextOpen(true)}
+              aria-label="Open context panel"
             >
               Show Context
             </button>
@@ -321,6 +323,7 @@ export default function AdviserPage() {
                   type="submit"
                   disabled={!input.trim() || isLoading}
                   className={styles.sendButton}
+                  aria-label="Send message"
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                     <path

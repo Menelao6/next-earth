@@ -10,6 +10,8 @@
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding: 1.5rem 0;
+  position: relative;
+  z-index: 100;
 }
 
 .headerContent {
@@ -48,28 +50,42 @@
   margin: 0;
 }
 
+/* Layout - Fixed the grid behavior */
 .layout {
   display: grid;
   grid-template-columns: 300px 1fr;
   max-width: 1400px;
   margin: 0 auto;
   min-height: calc(100vh - 200px);
+  position: relative;
 }
 
-/* Sidebar Styles */
+/* Sidebar Styles - Fixed positioning issues */
 .sidebar {
   background: rgba(255, 255, 255, 0.03);
   border-right: 1px solid rgba(255, 255, 255, 0.08);
-  transition: transform 0.3s ease;
   overflow-y: auto;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 50;
 }
 
+/* Desktop behavior - properly collapse sidebar */
 .sidebarOpen {
   transform: translateX(0);
+  width: 300px;
+  min-width: 300px;
+  visibility: visible;
+  opacity: 1;
 }
 
 .sidebarClosed {
   transform: translateX(-100%);
+  width: 0;
+  min-width: 0;
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
 }
 
 .sidebarContent {
@@ -77,6 +93,8 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 300px;
+  height: 100%;
 }
 
 .sidebarHeader {
@@ -105,6 +123,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color 0.3s ease;
 }
 
 .closeButton:hover {
@@ -153,6 +172,7 @@
 .noSkills {
   color: #94A3B8;
   font-style: italic;
+  font-size: 0.875rem;
 }
 
 .quickActions {
@@ -224,13 +244,20 @@
   background: rgba(0, 229, 155, 0.1);
 }
 
-/* Main Chat Area */
+/* Main Chat Area - Fixed expansion behavior */
 .main {
   position: relative;
   padding: 2rem;
   background: 
     radial-gradient(circle at 20% 80%, rgba(0, 229, 155, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(126, 182, 255, 0.1) 0%, transparent 50%);
+  transition: all 0.3s ease;
+  min-height: calc(100vh - 200px);
+}
+
+.mainExpanded {
+  grid-column: 1 / -1;
+  width: 100%;
 }
 
 .openContextButton {
@@ -245,6 +272,7 @@
   font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  z-index: 10;
 }
 
 .openContextButton:hover {
@@ -266,6 +294,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  min-height: 400px;
 }
 
 /* Welcome Message */
@@ -360,6 +389,8 @@
   border-radius: 18px;
   line-height: 1.5;
   font-size: 0.9375rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .userMessage .messageContent {
@@ -461,6 +492,7 @@
   max-height: 120px;
   outline: none;
   font-family: inherit;
+  line-height: 1.5;
 }
 
 .textInput::placeholder {
@@ -528,28 +560,73 @@
   }
 }
 
-/* Responsive Design */
+/* Mobile Responsive Design - Fixed overlapping issues */
 @media (max-width: 1024px) {
   .layout {
     grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
   }
   
   .sidebar {
     position: fixed;
     top: 0;
     left: 0;
-    width: 300px;
+    width: 100%;
     height: 100vh;
     z-index: 1000;
     transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    background: #0B1220;
+    border-right: none;
   }
   
   .sidebarOpen {
     transform: translateX(0);
+    width: 100%;
+    min-width: 100%;
+    visibility: visible;
+    opacity: 1;
+    position: fixed;
+  }
+  
+  .sidebarClosed {
+    transform: translateX(-100%);
+    width: 100%;
+    min-width: 100%;
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+  }
+  
+  .sidebarContent {
+    width: 100%;
+    padding: 2rem 1.5rem;
+    overflow-y: auto;
+    height: 100vh;
   }
   
   .main {
     padding: 1rem;
+    width: 100%;
+    min-height: calc(100vh - 200px);
+  }
+  
+  .mainExpanded {
+    width: 100%;
+  }
+  
+  .openContextButton {
+    position: fixed;
+    top: auto;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1001;
+    background: rgba(0, 229, 155, 0.9);
+    border: 1px solid rgba(0, 229, 155, 0.5);
+    color: #0B1220;
+    font-weight: 600;
   }
 }
 
@@ -569,5 +646,36 @@
   .chatActions {
     flex-direction: column;
     gap: 0.5rem;
+  }
+  
+  .contextChip {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem;
+  }
+  
+  .messageContent {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .welcomeMessage {
+    padding: 2rem 1rem;
+  }
+  
+  .welcomeEmoji {
+    font-size: 3rem;
+  }
+}
+
+/* Desktop specific fixes */
+@media (min-width: 1025px) {
+  .sidebarClosed {
+    position: absolute;
+  }
+  
+  .mainExpanded {
+    grid-column: 1 / -1;
+    margin-left: 0;
   }
 }
