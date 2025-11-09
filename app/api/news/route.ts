@@ -4,16 +4,14 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const keyword = (searchParams.get("keyword") || "").trim();
-  
-  // get the API key from environment variable
   const apiKey = process.env.NEWSDATA_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: "Missing API key" }, { status: 500 });
   }
 
-  // build query string
+  // build query string without page_size
   const qParam = keyword ? `q=${encodeURIComponent(keyword)}` : "";
-  const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&language=en&${qParam}&page_size=10`;
+  const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&language=en&${qParam}`;
 
   try {
     const res = await fetch(url, {
@@ -22,7 +20,7 @@ export async function GET(request: Request) {
         "Content-Type": "application/json",
         "User-Agent": "NewsDataClient/1.0"
       },
-      next: { revalidate: 1800 }, // cache for 30 min
+      next: { revalidate: 1800 },
     });
 
     if (!res.ok) {
@@ -36,7 +34,7 @@ export async function GET(request: Request) {
 
     const data = await res.json();
 
-    if (!data.articles || !Array.isArray(data.articles)) {
+    if (!data.results || !Array.isArray(data.results)) {
       console.error("Unexpected NewsData structure:", data);
       return NextResponse.json(
         { error: "Unexpected data structure from NewsData", debug: data },
@@ -44,12 +42,12 @@ export async function GET(request: Request) {
       );
     }
 
-    const items = data.articles
-      .filter((a: any) => a.title && a.url && a.source?.name && a.pubDate)
+    const items = data.results
+      .filter((a: any) => a.title && a.link && a.source_id && a.pubDate)
       .map((a: any) => ({
         title: a.title,
-        source: a.source.name,
-        url: a.url,
+        source: a.source_id,
+        url: a.link,
         publishedAt: a.pubDate,
       }));
 
