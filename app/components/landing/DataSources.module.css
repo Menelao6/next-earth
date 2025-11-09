@@ -1,0 +1,75 @@
+/* components/landing/DataSources.module.css */
+.dataSources {
+  padding: 5rem 0;
+  background-color: #0f172a;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #94A3B8;
+  margin-bottom: 1rem;
+}
+
+.sectionSubtitle {
+  color: #64748B;
+  font-size: 0.875rem;
+}
+
+.partnersGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  .partnersGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.partnerLogo {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.partnerLogo.animateIn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.partnerLogo:hover {
+  transform: scale(1.05);
+}
+
+.partnerEmoji {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.partnerLogo:hover .partnerEmoji {
+  opacity: 1;
+}
+
+.partnerName {
+  color: #CBD5E1;
+  font-weight: 500;
+  font-size: 0.875rem;
+}

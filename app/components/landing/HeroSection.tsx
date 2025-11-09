@@ -1,75 +1,112 @@
 // components/landing/HeroSection.tsx
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import styles from './HeroSection.module.css';
 
-interface HeroSectionProps {
-  onCtaClick?: () => void;
-}
-
-export default function HeroSection({ onCtaClick }: HeroSectionProps) {
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
-  const ctaRef = useRef<HTMLButtonElement>(null);
+export default function HeroSection() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const particlesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.animateIn);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    // Create particles
+    if (particlesRef.current) {
+      for (let i = 0; i < 25; i++) {
+        const particle = document.createElement('div');
+        particle.className = styles.particle;
+        particle.style.cssText = `
+          width: ${Math.random() * 4 + 2}px;
+          height: ${Math.random() * 4 + 2}px;
+          left: ${Math.random() * 100}%;
+          animation-delay: ${Math.random() * 20}s;
+          opacity: ${Math.random() * 0.3 + 0.1};
+        `;
+        particlesRef.current.appendChild(particle);
+      }
+    }
 
-    [titleRef, subtitleRef, ctaRef].forEach((ref) => {
-      if (ref.current) observer.observe(ref.current);
-    });
+    // Animate hero content
+    if (heroRef.current) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const elements = entry.target.querySelectorAll('.fade-slide-up');
+              elements.forEach((el, index) => {
+                setTimeout(() => {
+                  el.classList.add('animate-in');
+                }, index * 150);
+              });
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
 
-    return () => observer.disconnect();
+      if (heroRef.current) observer.observe(heroRef.current);
+      return () => observer.disconnect();
+    }
   }, []);
 
-  const handleCtaClick = () => {
-    if (onCtaClick) {
-      onCtaClick();
-    } else {
-      const pathSection = document.getElementById('choose-path');
-      pathSection?.scrollIntoView({ behavior: 'smooth' });
-    }
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    section?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section className={styles.hero}>
-      <div className={styles.backgroundAnimation}>
-        <div className={styles.orbitingSphere}></div>
-        <div className={styles.pulseRing}></div>
-      </div>
+    <section ref={heroRef} className={styles.hero}>
+      <div ref={particlesRef} className={styles.particlesContainer} />
       
-      <div className={styles.content}>
-        <h1 ref={titleRef} className={styles.title}>
-          Next Earth
-          <span className={styles.titleGlow}></span>
-        </h1>
-        
-        <p ref={subtitleRef} className={styles.subtitle}>
-          AI that connects your skills to real climate action.
-        </p>
-        
-        <button
-          ref={ctaRef}
-          className={styles.ctaButton}
-          onClick={handleCtaClick}
-        >
-          <span className={styles.ctaText}>Find Your Path</span>
-          <div className={styles.ctaSparkle}></div>
-        </button>
-      </div>
+      <div className={styles.heroContent}>
+        <div className={styles.heroGrid}>
+          {/* Left Content */}
+          <div className="fade-slide-up">
+            <div className={styles.badgeContainer}>
+              <div className={styles.badgeIcon}>
+                <span>🌍</span>
+              </div>
+              <span className={styles.badgeText}>
+                Powered by ASDI & NOAA data • Built for equity
+              </span>
+            </div>
+            
+            <h1 className={styles.heroTitle}>
+              Next Earth
+            </h1>
+            
+            <p className={styles.heroSubtitle}>
+              AI that connects your skills to real climate action—volunteer, learn, or start a green career.
+            </p>
 
-      <div className={styles.scrollIndicator}>
-        <div className={styles.scrollArrow}></div>
+            <div className={styles.buttonContainer}>
+              <button
+                onClick={() => scrollToSection('choose-path')}
+                className={styles.primaryButton}
+              >
+                Find your path →
+              </button>
+              
+              <button
+                onClick={() => scrollToSection('how-it-works')}
+                className={styles.secondaryButton}
+              >
+                How it works
+              </button>
+            </div>
+          </div>
+
+          {/* Right Visual */}
+          <div className={`fade-slide-up ${styles.visualContainer}`}>
+            <div className={styles.gradientOrb} />
+            <div className={styles.glassGlobe}>
+              <div className={styles.globe}>
+                <div className={styles.globeInner}>
+                  <span className={styles.globeEmoji}>🌎</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

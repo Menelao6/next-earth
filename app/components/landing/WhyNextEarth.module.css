@@ -1,0 +1,131 @@
+/* components/landing/WhyNextEarth.module.css */
+.whySection {
+  padding: 5rem 0;
+  background-color: #0B1220;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 1024px) {
+  .contentGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.textContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.sectionTitle {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .sectionTitle {
+    font-size: 2.5rem;
+  }
+}
+
+.description {
+  color: #CBD5E1;
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+.featuresContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.featureChip {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 229, 155, 0.2);
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  color: #00E59B;
+  font-size: 0.875rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.featureChip.animateIn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.visualContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gradientBackground {
+  width: 100%;
+  height: 20rem;
+  background: linear-gradient(135deg, rgba(0, 229, 155, 0.1), rgba(126, 182, 255, 0.1));
+  border-radius: 1.5rem;
+  filter: blur(3rem);
+}
+
+.glassMap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mapContainer {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  width: 100%;
+  height: 20rem;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mapContent {
+  text-align: center;
+}
+
+.mapEmoji {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.mapText {
+  color: #94A3B8;
+  font-size: 0.875rem;
+}
+
+@keyframes floatSlow {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-10px); 
+  }
+}

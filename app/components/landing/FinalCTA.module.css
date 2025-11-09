@@ -1,0 +1,65 @@
+/* components/landing/FinalCTA.module.css */
+.finalCTA {
+  padding: 5rem 0;
+  background: linear-gradient(to bottom, #0f172a, #0B1220);
+}
+
+.ctaContainer {
+  text-align: center;
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.ctaTitle {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .ctaTitle {
+    font-size: 2.5rem;
+  }
+}
+
+.ctaButton {
+  background: linear-gradient(135deg, #00E59B, #00B8A3);
+  color: #0B1220;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  border: none;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  animation: glowPulse 10s ease-in-out infinite;
+  margin-bottom: 1.5rem;
+}
+
+.ctaButton:hover {
+  transform: scale(1.05);
+}
+
+.ctaLink {
+  color: #94A3B8;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.ctaLink:hover {
+  color: #CBD5E1;
+}
+
+@keyframes glowPulse {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(0, 229, 155, 0.3); 
+  }
+  50% { 
+    box-shadow: 0 0 30px rgba(0, 229, 155, 0.6); 
+  }
+}

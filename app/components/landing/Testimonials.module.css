@@ -1,0 +1,105 @@
+/* components/landing/Testimonials.module.css */
+.testimonials {
+  padding: 5rem 0;
+  background-color: #0B1220;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.sectionTitle {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .sectionTitle {
+    font-size: 2.5rem;
+  }
+}
+
+.testimonialsContainer {
+  position: relative;
+  height: 16rem;
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.testimonialCard {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.5s ease;
+}
+
+.testimonialCard.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.testimonialCard.inactive {
+  opacity: 0;
+  transform: translateY(1rem);
+}
+
+.testimonialEmoji {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.testimonialQuote {
+  font-size: 1.25rem;
+  color: #CBD5E1;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+@media (min-width: 768px) {
+  .testimonialQuote {
+    font-size: 1.5rem;
+  }
+}
+
+.testimonialAuthor {
+  color: #00E59B;
+  font-weight: 600;
+}
+
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dot.active {
+  background: #00E59B;
+}
+
+.dot.inactive {
+  background: #334155;
+}
+
+.dot.inactive:hover {
+  background: #475569;
+}
