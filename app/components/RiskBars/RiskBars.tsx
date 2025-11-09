@@ -1,28 +1,46 @@
-import styles from "./RiskBars.module.css";
+// components/RiskBars/RiskBars.tsx
+import styles from './RiskBars.module.css';
 
-export default function RiskBars({
-  flood, cyclone, heat, source
-}: { flood: number; cyclone: number; heat: number; source: string }) {
-  const rows = [
-    { key: "Flood", val: flood, cls: styles.flood },
-    { key: "Cyclone", val: cyclone, cls: styles.cyclone },
-    { key: "Heat", val: heat, cls: styles.heat }
+interface RiskBarsProps {
+  risk: {
+    flood: number;
+    cyclone: number;
+    heat: number;
+    source: string;
+  };
+}
+
+export default function RiskBars({ risk }: RiskBarsProps) {
+  const getRiskLevel = (value: number) => {
+    if (value >= 0.7) return 'high';
+    if (value >= 0.4) return 'medium';
+    return 'low';
+  };
+
+  const riskItems = [
+    { label: 'Flood Risk', value: risk.flood, level: getRiskLevel(risk.flood) },
+    { label: 'Cyclone Risk', value: risk.cyclone, level: getRiskLevel(risk.cyclone) },
+    { label: 'Heat Stress', value: risk.heat, level: getRiskLevel(risk.heat) }
   ];
+
   return (
-    <section aria-label="Country risk snapshot" className={styles.wrap}>
-      <h4 className={styles.h}>Risk snapshot</h4>
-      <ul className={styles.list}>
-        {rows.map(r => (
-          <li key={r.key} className={styles.row}>
-            <span className={styles.label}>{r.key}</span>
-            <div className={styles.bar}>
-              <div className={`${styles.fill} ${r.cls}`} style={{ width: `${Math.round(r.val*100)}%` }} />
-            </div>
-            <span className={styles.pct}>{Math.round(r.val*100)}%</span>
-          </li>
-        ))}
-      </ul>
-      <div className={styles.src}>Source: {source}</div>
-    </section>
+    <div className={styles.riskBars}>
+      {riskItems.map(item => (
+        <div key={item.label} className={styles.riskItem}>
+          <div className={styles.riskLabel}>
+            <span>{item.label}</span>
+            <span className={styles.riskValue}>
+              {Math.round(item.value * 100)}%
+            </span>
+          </div>
+          <div className={styles.riskBar}>
+            <div 
+              className={`${styles.riskFill} ${styles[item.level]}`}
+              style={{ width: `${item.value * 100}%` }}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }

@@ -1,48 +1,61 @@
-import styles from "./RoleCard.module.css";
+// components/RoleCard/RoleCard.tsx
+import styles from './RoleCard.module.css';
 
-export interface RoleCardProps {
-  title: string;
-  score: number; // 0..1
-  microlearning: { title: string; link: string }[];
-  children?: React.ReactNode; // WhyBox goes here
-  onClickStep?: (title: string) => void;
+interface RoleCardProps {
+  role: {
+    id: string;
+    title: string;
+    score: number;
+    tags: string[];
+    microlearning: { title: string; link: string }[];
+    why: string;
+  };
+  index: number;
 }
 
-export default function RoleCard({
-  title,
-  score,
-  microlearning,
-  children,
-  onClickStep
-}: RoleCardProps) {
-  const pct = Math.round((score ?? 0) * 100);
-
+export default function RoleCard({ role, index }: RoleCardProps) {
   return (
-    <article className={styles.card} aria-labelledby={`${title}-h`}>
+    <div 
+      className={styles.roleCard}
+      style={{ animationDelay: `${index * 100}ms` }}
+    >
       <div className={styles.header}>
-        <h3 id={`${title}-h`} className={styles.title}>{title}</h3>
-        <span className={styles.score} aria-label={`Match score ${pct}%`}>
-          {pct}% match
-        </span>
-      </div>
-
-      <div className={styles.body}>
-        {children}
-        <div className={styles.steps}>
-          {microlearning?.slice(0,3).map((m) => (
-            <a
-              key={m.title}
-              className={styles.step}
-              href={m.link}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => onClickStep?.(m.title)}
-            >
-              {m.title}
-            </a>
-          ))}
+        <h3 className={styles.title}>{role.title}</h3>
+        <div className={styles.score}>
+          {Math.round(role.score * 100)}% match
         </div>
       </div>
-    </article>
+      
+      <div className={styles.why}>
+        {role.why}
+      </div>
+      
+      <div className={styles.tags}>
+        {role.tags.map(tag => (
+          <span key={tag} className={styles.tag}>
+            {tag}
+          </span>
+        ))}
+      </div>
+      
+      {role.microlearning.length > 0 && (
+        <div className={styles.learning}>
+          <h4 className={styles.learningTitle}>Quick Learning</h4>
+          <div className={styles.learningLinks}>
+            {role.microlearning.map((item, i) => (
+              <a 
+                key={i}
+                href={item.link}
+                className={styles.learningLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {item.title} →
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

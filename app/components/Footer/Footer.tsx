@@ -8,37 +8,13 @@ export default function Footer() {
 
   return (
     <footer style={footerStyle}>
-      <div style={containerStyle}>
-        <div style={contentStyle}>
-          <h2 style={titleStyle}>
-            Ready to take action? <span style={earthStyle}>🌎</span>
-          </h2>
-          <p style={subtitleStyle}>
-            Start your journey toward a sustainable future today.
-          </p>
-          
-          <button 
-            style={buttonStyle}
-            onClick={handleGetStarted}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 10px 25px rgba(45, 122, 79, 0.4)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
-            }}
-          >
-            Get Started
-          </button>
-        </div>
+     
         
         <div style={footerBottomStyle}>
           <p style={copyrightStyle}>
             © 2024 Next Earth. Empowering climate action worldwide.
           </p>
         </div>
-      </div>
     </footer>
   );
 }

@@ -1,7 +1,9 @@
+// lib/useAppState.tsx
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import type { PathChoice } from "../components/PathCards/PathCards";
+
+export type PathChoice = "help_hospitals" | "support_communities" | "join_workforce";
 
 export interface UserInputState {
   path?: PathChoice;
@@ -24,14 +26,17 @@ const AppStateCtx = createContext<Ctx>({ state: defaultState, setState: () => {}
 export function AppStateProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<UserInputState>(() => {
     if (typeof window !== "undefined") {
-      try { return JSON.parse(localStorage.getItem("renewus_state") || "null") || defaultState; }
-      catch { /* noop */ }
+      try { 
+        return JSON.parse(localStorage.getItem("next_earth_state") || "null") || defaultState; 
+      } catch { /* noop */ }
     }
     return defaultState;
   });
 
   useEffect(() => {
-    try { localStorage.setItem("renewus_state", JSON.stringify(state)); } catch {}
+    try { 
+      localStorage.setItem("next_earth_state", JSON.stringify(state)); 
+    } catch {}
   }, [state]);
 
   return (

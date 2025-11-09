@@ -1,7 +1,8 @@
-"use client";
+// components/SkillChips/SkillChips.tsx
+'use client';
 
-import { useRef, useState } from "react";
-import styles from "./SkillChips.module.css";
+import { useRef, useState } from 'react';
+import styles from './SkillChips.module.css';
 
 interface SkillChipsProps {
   value: string[];
@@ -16,7 +17,7 @@ export default function SkillChips({
   placeholder = "Type a skill and press Enter…",
   max = 10,
 }: SkillChipsProps) {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
   function addSkill(s: string) {
@@ -25,7 +26,7 @@ export default function SkillChips({
     if (value.includes(skill.toLowerCase())) return;
     if (value.length >= max) return;
     onChange([...value, skill.toLowerCase()]);
-    setInput("");
+    setInput('');
     inputRef.current?.focus();
   }
 
@@ -55,14 +56,14 @@ export default function SkillChips({
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter") {
+            if (e.key === 'Enter') {
               e.preventDefault();
               addSkill(input);
-            } else if (e.key === "Backspace" && !input && value.length) {
+            } else if (e.key === 'Backspace' && !input && value.length) {
               removeSkill(value[value.length - 1]);
             }
           }}
-          placeholder={placeholder}
+          placeholder={value.length === 0 ? placeholder : ''}
           aria-label="Add skills"
         />
       </div>
