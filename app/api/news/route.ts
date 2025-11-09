@@ -1,5 +1,9 @@
 // app/api/news/route.ts
-import { NextResponse } from "next/server";
+
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs"; // this is important
+
+import { NextResponse } from "next/server"
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
