@@ -1,8 +1,8 @@
-/* app/adviser/adviser.module.css */
 .adviserPage {
   min-height: 100vh;
   background: #0B1220;
   color: #ffffff;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 .header {
@@ -34,6 +34,38 @@
   margin-bottom: 1rem;
 }
 
+.setupPrompt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 193, 7, 0.1);
+  border: 1px solid rgba(255, 193, 7, 0.2);
+  border-radius: 20px;
+  font-size: 0.875rem;
+  color: #FFC107;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.setupButton {
+  background: rgba(255, 193, 7, 0.2);
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  border-radius: 12px;
+  color: #FFC107;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.setupButton:hover {
+  background: rgba(255, 193, 7, 0.3);
+  transform: translateY(-1px);
+}
+
 .title {
   font-size: 2.5rem;
   font-weight: 700;
@@ -58,6 +90,11 @@
   margin: 0 auto;
   min-height: calc(100vh - 200px);
   position: relative;
+  overflow: hidden; /* Prevent nested scrolling */
+}
+
+.layoutFullWidth {
+  grid-template-columns: 1fr;
 }
 
 /* Sidebar Styles - Fixed positioning issues */
@@ -68,6 +105,7 @@
   transition: all 0.3s ease;
   position: relative;
   z-index: 50;
+  height: calc(100vh - 200px); /* Fixed height to prevent overflow */
 }
 
 /* Desktop behavior - properly collapse sidebar */
@@ -95,6 +133,7 @@
   gap: 2rem;
   width: 300px;
   height: 100%;
+  overflow-y: auto; /* Allow scrolling within sidebar if content is long */
 }
 
 .sidebarHeader {
@@ -212,38 +251,6 @@
   color: #ffffff;
 }
 
-.resources {
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 12px;
-  padding: 1rem;
-}
-
-.resources h4 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin: 0 0 1rem 0;
-}
-
-.resourceList {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.resourceLink {
-  color: #00E59B;
-  text-decoration: none;
-  font-size: 0.875rem;
-  padding: 0.5rem;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
-}
-
-.resourceLink:hover {
-  background: rgba(0, 229, 155, 0.1);
-}
-
 /* Main Chat Area - Fixed expansion behavior */
 .main {
   position: relative;
@@ -253,11 +260,130 @@
     radial-gradient(circle at 80% 20%, rgba(126, 182, 255, 0.1) 0%, transparent 50%);
   transition: all 0.3s ease;
   min-height: calc(100vh - 200px);
+  overflow: hidden; /* Prevent main area from scrolling */
 }
 
 .mainExpanded {
   grid-column: 1 / -1;
   width: 100%;
+}
+
+/* Setup Guide Styles */
+.setupGuide {
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+  padding: 2rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+.setupEmoji {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.setupGuide h3 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 1rem 0;
+}
+
+.setupGuide p {
+  color: #CBD5E1;
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+}
+
+.setupSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.stepNumber {
+  background: linear-gradient(135deg, #00E59B, #00B8A3);
+  color: #0B1220;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.stepContent {
+  flex: 1;
+}
+
+.stepContent strong {
+  color: #ffffff;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.stepContent p {
+  color: #94A3B8;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.primarySetupButton {
+  background: linear-gradient(135deg, #00E59B, #00B8A3);
+  color: #0B1220;
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 1rem 0;
+}
+
+.primarySetupButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 229, 155, 0.3);
+}
+
+.chatAnyway {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+}
+
+.chatAnyway p {
+  color: #94A3B8;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.genericWelcome {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  margin-bottom: 2rem;
 }
 
 .openContextButton {
@@ -279,22 +405,24 @@
   background: rgba(255, 255, 255, 0.15);
 }
 
+/* Chat Container - Fixed scrolling */
 .chatContainer {
   max-width: 800px;
   margin: 0 auto;
   height: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* Prevent container scrolling */
 }
 
 .messages {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: auto; /* Only messages area scrolls */
   padding: 1rem 0;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  min-height: 400px;
+  min-height: 0; /* Important for flex scrolling */
 }
 
 /* Welcome Message */
@@ -464,7 +592,8 @@
 
 /* Input Form */
 .inputForm {
-  margin-top: 2rem;
+  margin-top: auto; /* Push to bottom */
+  padding-top: 2rem;
 }
 
 .inputContainer {
@@ -560,12 +689,14 @@
   }
 }
 
-/* Mobile Responsive Design - Fixed overlapping issues */
+/* Mobile Responsive Design - Fixed scrolling issues */
 @media (max-width: 1024px) {
   .layout {
     grid-template-columns: 1fr;
     display: flex;
     flex-direction: column;
+    min-height: calc(100vh - 200px);
+    overflow: hidden;
   }
   
   .sidebar {
@@ -610,6 +741,7 @@
     padding: 1rem;
     width: 100%;
     min-height: calc(100vh - 200px);
+    overflow: hidden;
   }
   
   .mainExpanded {
@@ -627,6 +759,25 @@
     border: 1px solid rgba(0, 229, 155, 0.5);
     color: #0B1220;
     font-weight: 600;
+  }
+
+  .setupSteps {
+    gap: 1rem;
+  }
+
+  .step {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+
+  .stepNumber {
+    align-self: center;
+  }
+
+  .setupGuide {
+    margin: 0 auto 1rem auto;
+    padding: 1.5rem;
   }
 }
 
@@ -648,7 +799,7 @@
     gap: 0.5rem;
   }
   
-  .contextChip {
+  .contextChip, .setupPrompt {
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.25rem;
@@ -659,12 +810,25 @@
     font-size: 0.875rem;
   }
   
-  .welcomeMessage {
+  .welcomeMessage, .genericWelcome {
     padding: 2rem 1rem;
   }
   
   .welcomeEmoji {
     font-size: 3rem;
+  }
+
+  .setupGuide {
+    padding: 1rem;
+    margin: 0 auto 1rem auto;
+  }
+
+  .setupEmoji {
+    font-size: 3rem;
+  }
+
+  .main {
+    padding: 1rem 0.5rem;
   }
 }
 
@@ -677,5 +841,10 @@
   .mainExpanded {
     grid-column: 1 / -1;
     margin-left: 0;
+  }
+
+  .layoutFullWidth .main {
+    max-width: 1000px;
+    margin: 0 auto;
   }
 }

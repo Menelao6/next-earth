@@ -8,7 +8,7 @@ const partners = [
   { name: 'ASDI', logo: '🌐' },
   { name: 'NOAA', logo: '🌊' },
   { name: 'ReliefWeb', logo: '🔄' },
-  { name: 'OpenStreetMap', logo: '🗺️' },
+  { name: 'OpenAi', logo: '🌎' },
 ];
 
 export default function DataSources() {
