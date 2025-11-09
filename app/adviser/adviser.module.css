@@ -1,0 +1,573 @@
+/* app/adviser/adviser.module.css */
+.adviserPage {
+  min-height: 100vh;
+  background: #0B1220;
+  color: #ffffff;
+}
+
+.header {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.5rem 0;
+}
+
+.headerContent {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.contextChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 229, 155, 0.1);
+  border: 1px solid rgba(0, 229, 155, 0.2);
+  border-radius: 20px;
+  font-size: 0.875rem;
+  color: #00E59B;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff, #00E59B);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 0.5rem 0;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #CBD5E1;
+  margin: 0;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: calc(100vh - 200px);
+}
+
+/* Sidebar Styles */
+.sidebar {
+  background: rgba(255, 255, 255, 0.03);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+}
+
+.sidebarOpen {
+  transform: translateX(0);
+}
+
+.sidebarClosed {
+  transform: translateX(-100%);
+}
+
+.sidebarContent {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.sidebarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.sidebarHeader h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: #94A3B8;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeButton:hover {
+  color: #ffffff;
+}
+
+.contextSection {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.contextSection h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 1rem 0;
+}
+
+.contextItem {
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.contextItem strong {
+  color: #CBD5E1;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.skillsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.skillTag {
+  background: rgba(0, 229, 155, 0.1);
+  color: #00E59B;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+}
+
+.noSkills {
+  color: #94A3B8;
+  font-style: italic;
+}
+
+.quickActions {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.quickActions h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 1rem 0;
+}
+
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.actionButton {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #CBD5E1;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.actionButton:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 229, 155, 0.3);
+  color: #ffffff;
+}
+
+.resources {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.resources h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 1rem 0;
+}
+
+.resourceList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.resourceLink {
+  color: #00E59B;
+  text-decoration: none;
+  font-size: 0.875rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.resourceLink:hover {
+  background: rgba(0, 229, 155, 0.1);
+}
+
+/* Main Chat Area */
+.main {
+  position: relative;
+  padding: 2rem;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(0, 229, 155, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(126, 182, 255, 0.1) 0%, transparent 50%);
+}
+
+.openContextButton {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.openContextButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.chatContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Welcome Message */
+.welcomeMessage {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  margin-bottom: 2rem;
+}
+
+.welcomeEmoji {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.welcomeMessage h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 1rem 0;
+}
+
+.welcomeMessage p {
+  color: #CBD5E1;
+  margin: 0 0 1rem 0;
+}
+
+.welcomeList {
+  text-align: left;
+  color: #94A3B8;
+  margin: 0 0 2rem 0;
+  padding-left: 1.5rem;
+}
+
+.welcomeList li {
+  margin-bottom: 0.5rem;
+}
+
+.quickPrompts {
+  margin-top: 2rem;
+}
+
+.quickPrompts p {
+  color: #94A3B8;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.quickPrompt {
+  display: block;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #CBD5E1;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.quickPrompt:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 229, 155, 0.3);
+  color: #ffffff;
+}
+
+/* Message Styles */
+.message {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+  animation: messageSlide 0.3s ease-out;
+}
+
+.userMessage {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.assistantMessage {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.messageContent {
+  padding: 1rem 1.5rem;
+  border-radius: 18px;
+  line-height: 1.5;
+  font-size: 0.9375rem;
+}
+
+.userMessage .messageContent {
+  background: linear-gradient(135deg, #00E59B, #00B8A3);
+  color: #0B1220;
+  border-bottom-right-radius: 4px;
+}
+
+.assistantMessage .messageContent {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-bottom-left-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.messageContent p {
+  margin: 0 0 0.5rem 0;
+}
+
+.messageContent p:last-child {
+  margin-bottom: 0;
+}
+
+.messageTime {
+  font-size: 0.75rem;
+  color: #64748B;
+  margin-top: 0.5rem;
+  padding: 0 0.5rem;
+}
+
+/* Typing Indicator */
+.typingIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  border-bottom-left-radius: 4px;
+  color: #94A3B8;
+  font-size: 0.875rem;
+  align-self: flex-start;
+  max-width: fit-content;
+}
+
+.typingDots {
+  display: flex;
+  gap: 4px;
+}
+
+.typingDots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00E59B;
+  animation: typingBounce 1.4s ease-in-out infinite both;
+}
+
+.typingDots span:nth-child(1) { animation-delay: -0.32s; }
+.typingDots span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typingBounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+/* Input Form */
+.inputForm {
+  margin-top: 2rem;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.inputContainer:focus-within {
+  border-color: rgba(0, 229, 155, 0.5);
+}
+
+.textInput {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 0.9375rem;
+  resize: none;
+  max-height: 120px;
+  outline: none;
+  font-family: inherit;
+}
+
+.textInput::placeholder {
+  color: #64748B;
+}
+
+.sendButton {
+  background: linear-gradient(135deg, #00E59B, #00B8A3);
+  border: none;
+  border-radius: 12px;
+  color: #0B1220;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.sendButton:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 229, 155, 0.3);
+}
+
+.sendButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.chatActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.clearButton, .saveButton {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #94A3B8;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clearButton:hover, .saveButton:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+/* Animations */
+@keyframes messageSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100vh;
+    z-index: 1000;
+    transform: translateX(-100%);
+  }
+  
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+  
+  .main {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .headerContent {
+    padding: 0 1rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .message {
+    max-width: 90%;
+  }
+  
+  .chatActions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

@@ -57,7 +57,7 @@ export default function PathSelector() {
 
   const handleContinue = () => {
     if (selectedPath) {
-      router.push('/profile');
+      router.push('/matches');
     }
   };
 

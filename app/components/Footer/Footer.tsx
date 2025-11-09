@@ -12,7 +12,7 @@ export default function Footer() {
         
         <div style={footerBottomStyle}>
           <p style={copyrightStyle}>
-            © 2024 Next Earth. Empowering climate action worldwide.
+            © 2025 Next Earth. Empowering climate action worldwide.
           </p>
         </div>
     </footer>
