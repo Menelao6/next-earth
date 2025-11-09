@@ -9,22 +9,16 @@ export async function GET(request: Request) {
   }
 
   // Curated humanitarian & natural disaster keywords
-  const keywordSet = [
-    "earthquake",
-    "flood",
-    "wildfire",
-    "hurricane",
-    "\"humanitarian aid\"",
-    "\"natural disaster\"",
-    "drought",
-    "famine",
-    "tsunami",
-    "tornado",
-    "storm",
-    "disaster relief",
-    "evacuation",
-    "green job"
-  ];
+const keywordSet = [
+  "earthquake",
+  "flood",
+  "wildfire",
+  "\"humanitarian aid\"",
+  "\"natural disaster\"",
+  "drought",
+  "famine"
+];
+
 
   // Allow optional user keyword to extend the set
   const userKeyword = (searchParams.get("keyword") || "").trim();
