@@ -55,6 +55,11 @@ export default function HeroSection() {
 
   return (
     <section ref={heroRef} className={styles.hero}>
+      {/* Background Images */}
+      <div className={styles.backgroundContainer}>
+        <div className={styles.backgroundOverlay}></div>
+      </div>
+      
       <div ref={particlesRef} className={styles.particlesContainer} />
       
       <div className={styles.heroContent}>

@@ -25,7 +25,7 @@ export default function Header() {
     <header className={styles.header} role="banner">
       <div className={styles.inner}>
         <Link className={styles.brand} href="/" aria-label="Next Earth home">
-          <Image src="/logo.png" width={32} height={32} alt="" priority />
+          <Image src="/mobile-b.jpg" width={32} height={32} alt="" priority />
           <span className={styles.brandText}>Next Earth</span>
         </Link>
 

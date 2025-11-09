@@ -1,9 +1,5 @@
-/* components/landing/HeroSection.module.css */
 .hero {
   min-height: 100vh;
-  background: linear-gradient(-45deg, #0B1220, #0f172a, #1e293b, #334155);
-  background-size: 400% 400%;
-  animation: gradientShift 20s ease infinite;
   position: relative;
   display: flex;
   align-items: center;
@@ -12,6 +8,63 @@
   overflow: hidden;
 }
 
+/* Background Container with Responsive Images */
+.backgroundContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Mobile Background (default) */
+.backgroundContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    /* Your mobile background image */
+    url('/mobile-b.jpg'),
+    /* Fallback gradient overlay */
+    linear-gradient(135deg, #0B1220 0%, #1e293b 50%, #0f172a 1%);
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+  z-index: 1;
+}
+
+/* Desktop Background */
+@media (min-width: 768px) {
+  .backgroundContainer::before {
+    background-image: 
+      /* Your desktop background image */
+      url('/desktop-b.jpg'),
+      /* Fallback gradient overlay */
+      linear-gradient(135deg, #0B1220 0%, #1e293b 30%, #0f172a 70%, #0B1220 1%);
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+  }
+}
+
+/* Additional overlay for better text readability */
+.backgroundOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse at center, rgba(11, 18, 32, 0.4) 0%, rgba(11, 18, 32, 0.8) 100%),
+    linear-gradient(to bottom, rgba(11, 18, 32, 0.2) 0%, rgba(11, 18, 32, 0.6) 100%);
+  z-index: 2;
+}
+
+/* Rest of your existing CSS remains the same */
 .particlesContainer {
   position: absolute;
   top: 0;
@@ -19,7 +72,7 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 1;
+  z-index: 3;
 }
 
 .particle {
@@ -65,6 +118,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 229, 155, 0.3);
 }
 
 .badgeText {
@@ -79,6 +133,18 @@
   line-height: 1.1;
   color: #ffffff;
   margin-bottom: 0;
+  background: linear-gradient(135deg, #ffffff 0%, #00E59B 30%, #7EB6FF 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: titleGradient 8s ease infinite;
+}
+
+@keyframes titleGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 @media (min-width: 768px) {
@@ -99,6 +165,7 @@
   line-height: 1.6;
   margin-top: 1.5rem;
   margin-bottom: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 @media (min-width: 768px) {
@@ -129,27 +196,50 @@
   border: none;
   font-size: 1.125rem;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 229, 155, 0.3);
+  position: relative;
+  overflow: hidden;
 }
 
 .primaryButton:hover {
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 229, 155, 0.4);
+}
+
+.primaryButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.primaryButton:hover::before {
+  left: 100%;
 }
 
 .secondaryButton {
-  border: 1px solid #334155;
+  border: 2px solid #334155;
   color: #CBD5E1;
   font-weight: 600;
   padding: 1rem 2rem;
   border-radius: 1rem;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
   font-size: 1.125rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .secondaryButton:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #00E59B;
+  color: #ffffff;
+  transform: translateY(-2px);
 }
 
 .visualContainer {
@@ -165,6 +255,18 @@
   background: linear-gradient(135deg, rgba(0, 229, 155, 0.2), rgba(126, 182, 255, 0.2));
   border-radius: 50%;
   filter: blur(3rem);
+  animation: orbPulse 4s ease-in-out infinite;
+}
+
+@keyframes orbPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
 }
 
 .glassGlobe {
@@ -185,6 +287,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  animation: globeFloat 6s ease-in-out infinite;
+}
+
+@keyframes globeFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
 }
 
 .globeInner {
@@ -195,16 +310,43 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.globeInner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: globeShine 3s linear infinite;
+}
+
+@keyframes globeShine {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .globeEmoji {
   font-size: 4rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  animation: emojiBounce 3s ease-in-out infinite;
 }
 
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+@keyframes emojiBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 @keyframes particleFloat {
@@ -221,5 +363,49 @@
   100% {
     transform: translateY(-100vh) rotate(360deg);
     opacity: 0;
+  }
+}
+
+/* Enhanced mobile experience */
+@media (max-width: 767px) {
+  .hero {
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+  
+  .badgeContainer {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+  
+  .heroSubtitle {
+    font-size: 1.125rem;
+  }
+  
+  .visualContainer {
+    margin-top: 2rem;
+  }
+  
+  .gradientOrb {
+    width: 16rem;
+    height: 16rem;
+  }
+  
+  .globe {
+    width: 12rem;
+    height: 12rem;
+  }
+  
+  .globeInner {
+    width: 9rem;
+    height: 9rem;
+  }
+  
+  .globeEmoji {
+    font-size: 3rem;
   }
 }

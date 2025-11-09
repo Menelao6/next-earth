@@ -78,7 +78,7 @@ export default function AdviserPage() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/adviser', {
+      const response = await fetch('/api/advisor', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
