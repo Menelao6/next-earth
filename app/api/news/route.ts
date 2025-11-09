@@ -3,14 +3,35 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const keyword = (searchParams.get("keyword") || "").trim();
   const apiKey = process.env.NEWSDATA_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: "Missing API key" }, { status: 500 });
   }
 
-  // build query string without page_size
-  const qParam = keyword ? `q=${encodeURIComponent(keyword)}` : "";
+  // Curated humanitarian & natural disaster keywords
+  const keywordSet = [
+    "earthquake",
+    "flood",
+    "wildfire",
+    "hurricane",
+    "\"humanitarian aid\"",
+    "\"natural disaster\"",
+    "drought",
+    "famine",
+    "tsunami",
+    "tornado",
+    "storm",
+    "disaster relief",
+    "evacuation",
+    "green job"
+  ];
+
+  // Allow optional user keyword to extend the set
+  const userKeyword = (searchParams.get("keyword") || "").trim();
+  if (userKeyword) keywordSet.push(userKeyword);
+
+  // Build query parameter for NewsData.io
+  const qParam = `q=${encodeURIComponent(keywordSet.join(" OR "))}`;
   const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&language=en&${qParam}`;
 
   try {
@@ -42,8 +63,16 @@ export async function GET(request: Request) {
       );
     }
 
+    // Filter articles by keywords in the title to remove irrelevant news
     const items = data.results
-      .filter((a: any) => a.title && a.link && a.source_id && a.pubDate)
+      .filter(
+        (a: any) =>
+          a.title &&
+          a.link &&
+          a.source_id &&
+          a.pubDate &&
+          keywordSet.some((k) => a.title.toLowerCase().includes(k.replace(/"/g, "").toLowerCase()))
+      )
       .map((a: any) => ({
         title: a.title,
         source: a.source_id,
